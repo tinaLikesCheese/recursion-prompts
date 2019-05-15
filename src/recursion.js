@@ -92,8 +92,21 @@ var sumBelow = function(n) {
 // range(2,9); // [3,4,5,6,7,8]
 
 var range = function(x, y) {
+  var output = [];
 
-};
+  if(x === y || x + 1 === y) {
+    return output;
+  }
+
+  if(x > y && x - 1 === y) {
+    return output;
+  }
+
+  if(x > y) {
+    return [x-1].concat(range(x-1, y));
+  }
+  return [x+1].concat(range(x + 1, y));
+}; 
 
 // 7. Compute the exponent of a number.
 // The exponent of a number says how many times the base number is used as a factor.
@@ -102,38 +115,58 @@ var range = function(x, y) {
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 
 var exponent = function(base, exp) {
-	if (exp === 0) {
-		return 1; 
-	}
+  if(exp === 0) return 1; 
+  if(exp === 1) return base;
 
-	if (exp === 1) {
-		return base;
-	}
+  if(exp < 0) {
+    return (1/base) * exponent(base, exp + 1).toFixed(4);
+  }
 
-	if (exp === -1) {
-		return 1/base; 
-	}
-
-	if (exp < 0) {
-		return (1/base) * exponent(base, exp + 1).toFixed(4);
-	}
-
-	return base * exponent(base, exp - 1); 
+  return base * exponent(base, exp - 1);
 };
 
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
+
 var powerOfTwo = function(n) {
+  if (n === 0) {
+    return false; 
+  }
+
+  if(n === 1) {
+    return true; 
+  }
+
+  if(Number.isInteger(n/2)) {
+    return powerOfTwo(n/2);
+  }
+
+  return false; 
+	
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  if(string.length === 1) {
+    return string; 
+  }
+
+  return string[string.length - 1] + reverse(string.slice(0, string.length-1)); 
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  if(string.length === 1) return true;
+  if(string.length === 0) return true; 
+
+  if(string[0].toLowerCase() === string[string.length - 1].toLowerCase()) {
+    return palindrome(string.slice(1, string.length - 1)); 
+  }
+
+  return false; 
+  
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
